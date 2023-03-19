@@ -4,7 +4,7 @@ from adfly import AdflyApi
 
 def short(url):
     api = AdflyApi(
-        user_id=14525055,
+        user_id=,
         public_key='',
         secret_key='',
     )
