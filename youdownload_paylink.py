@@ -74,12 +74,14 @@ def link_creator(url):
         x = url.split('/')
         link = "https://www.youtubepi.com/" + x[3]
         link = short(link)['data'][-1]['short_url']
+
         link = '<a href="' + link + '">' + 'DOWNLOAD' + '</a>'
         return(link)
     else:
         if url.startswith('https://youtu.be'):
             x = url.split('/')
             link = "https://www.youtubepi.com/" + "watch?v=" + x[3]
+            link = short(link)['data'][-1]['short_url']
             link = '<a href="' + link + '">' + 'DOWNLOAD' + '</a>'
             return(link)
         else:
@@ -91,22 +93,18 @@ if __name__ == '__main__':
     print("Bot inizializzato...")
 
     while True:
-        try:
-            ris = inbox()
-            if ris == None:
-                pass
-            else:
-                if var == True:
-                    var = False
-                else:
-
-                    mex = link_creator(ris['TEXT'])
-                    if mex == False:
-                        send_to_telegram(int(
-                            ris['ID_FROM']), "<b>Inserisci un link YouTube Valido!!</b>")
-                        pass
-                    else:
-                        send_to_telegram(int(ris['ID_FROM']), mex)
-        except:
-            print("errore")
+        ris = inbox()
+        if ris == None:
             pass
+        else:
+            if var == True:
+                var = False
+            else:
+                print(ris['TEXT'])
+                mex = link_creator(ris['TEXT'])
+                if mex == False:
+                    send_to_telegram(int(
+                        ris['ID_FROM']), "<b>Inserisci un link YouTube Valido!!</b>")
+                    pass
+                else:
+                    send_to_telegram(int(ris['ID_FROM']), mex)
