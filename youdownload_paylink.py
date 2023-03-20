@@ -91,18 +91,22 @@ if __name__ == '__main__':
     print("Bot inizializzato...")
 
     while True:
-        ris = inbox()
-        if ris == None:
-            pass
-        else:
-            if var == True:
-                var = False
+        try:
+            ris = inbox()
+            if ris == None:
+                pass
             else:
-
-                mex = link_creator(ris['TEXT'])
-                if mex == False:
-                    send_to_telegram(int(
-                        ris['ID_FROM']), "<b>Inserisci un link YouTube Valido!!</b>")
-                    pass
+                if var == True:
+                    var = False
                 else:
-                    send_to_telegram(int(ris['ID_FROM']), mex)
+
+                    mex = link_creator(ris['TEXT'])
+                    if mex == False:
+                        send_to_telegram(int(
+                            ris['ID_FROM']), "<b>Inserisci un link YouTube Valido!!</b>")
+                        pass
+                    else:
+                        send_to_telegram(int(ris['ID_FROM']), mex)
+        except:
+            print("errore")
+            pass
